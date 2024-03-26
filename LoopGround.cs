@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LoopGround : MonoBehaviour
@@ -15,16 +13,19 @@ public class LoopGround : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        _startSize = new Vector2(_spriteRenderer.size.x, _spriteRenderer.size.y);
+        _startSize = _spriteRenderer.size;
     }
 
     private void Update()
     {
-        _spriteRenderer.size = new Vector2(_spriteRenderer.size.x + _speed * Time.deltaTime, _spriteRenderer.size.y);
-
-        if (_spriteRenderer.size.x > _width)
+        var size = _spriteRenderer.size;
+        size.x += _speed * Time.deltaTime;
+        
+        if (size.x > _width)
         {
-            _spriteRenderer.size = _startSize;
+            size = _startSize;
         }
+        
+        _spriteRenderer.size = size;
     }
 }
